@@ -63,6 +63,10 @@ map <leader>du yypkgccj
 " toggle line numbers
 nnoremap <leader>nn :set number!<CR>
 
+" toggle mouse
+nmap <leader>mo :set mouse=<CR>
+nmap <leader>mO :set mouse=a<CR>
+
 " abbreviations
 iab __HOME__  /nfs/users/nfs_j/jt6
 iab strictl   strict;
@@ -76,9 +80,9 @@ autocmd bufenter *.ent setlocal syntax=
 autocmd bufenter *.pdb setlocal syntax=
 
 " subvert the "make" command to compile perl
-" autocmd filetype perl set makeprg=perl\ -c\ %\ $*
-" autocmd filetype perl set errorformat=%f:%l:%m
-" autocmd filetype perl set autowrite
+autocmd filetype perl set makeprg=$VIMRUNTIME/tools/efm_perl.pl\ -c\ %\ $*
+autocmd filetype perl set errorformat=%f:%l:%m
+autocmd filetype perl set autowrite
 
 " use perltidy to clean up perl code (hit "=")
 autocmd Filetype perl :set equalprg=perltidy
@@ -161,6 +165,18 @@ let Tlist_Close_On_Select = 1
 nnoremap <leader>tl :TlistToggle<CR>
 
 "-------------------------------------------------------------------------------
+" Unimpaired
+
+Bundle "unimpaired.vim"
+
+" Bubble single lines
+"nmap <C-Up> [e
+"nmap <C-Down> ]e
+" Bubble multiple lines
+"vmap <C-Up> [egv
+"vmap <C-Down> ]egv
+
+"-------------------------------------------------------------------------------
 " everything else...
 
 Bundle "Align"
@@ -172,4 +188,5 @@ Bundle "sessionman.vim"
 Bundle "snipMate"
 Bundle "SuperTab"
 Bundle "surround.vim"
+Bundle "ack.vim"
 
