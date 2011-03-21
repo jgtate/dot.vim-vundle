@@ -1,8 +1,4 @@
 
-" set up pathogen
-"call pathogen#runtime_append_all_bundles()
-"call pathogen#helptags()
-
 set nocompatible
 filetype plugin on
 
@@ -172,4 +168,13 @@ Bundle "sessionman.vim"
 Bundle "snipMate"
 Bundle "SuperTab"
 Bundle "surround.vim"
+Bundle "unimpaired.vim"
+
+"-------------------------------------------------------------------------------
+"" host-specific setup
+
+let hostfile=expand('$HOME/.vim/vimrc-'.hostname())
+if filereadable(hostfile)
+  exe 'source '.hostfile
+endif
 
