@@ -59,22 +59,26 @@ map <leader>du yypkgccj
 " toggle line numbers
 nnoremap <leader>nn :set number!<CR>
 
+" toggle buffer read-only
+nnoremap <leader>ro :set readonly!<CR>
+
+" toggle mouse
+nmap <leader>mo :set mouse=a<CR>
+nmap <leader>mO :set mouse=<CR>
+
 " abbreviations
 iab __HOME__  /nfs/users/nfs_j/jt6
 iab strictl   strict;
 iab warningsl warnings;
-
-" set template toolkit template files to be syntax highlighted as html
-autocmd bufread *.tt set filetype=tt2
 
 " switch off syntax highlighting for pdb files
 autocmd bufenter *.ent setlocal syntax=
 autocmd bufenter *.pdb setlocal syntax=
 
 " subvert the "make" command to compile perl
-" autocmd filetype perl set makeprg=perl\ -c\ %\ $*
-" autocmd filetype perl set errorformat=%f:%l:%m
-" autocmd filetype perl set autowrite
+autocmd filetype perl set makeprg=$VIMRUNTIME/tools/efm_perl.pl\ -c\ %\ $*
+autocmd filetype perl set errorformat=%f:%l:%m
+autocmd filetype perl set autowrite
 
 " use perltidy to clean up perl code (hit "=")
 autocmd Filetype perl :set equalprg=perltidy
@@ -87,14 +91,17 @@ nmap <silent> <F2> :set go-=m<CR> " turn off the menubar
 nmap <silent> <F3> :set go+=m<CR> " turn on  the menubar
 
 " for TT2 syntax highlighting
-au BufNewFile,BufRead *.tt2
-    \ if ( getline(1) . getline(2) . getline(3) =~ '<\chtml'
-    \           && getline(1) . getline(2) . getline(3) !~ '<[%?]' )
-    \   || getline(1) =~ '<!DOCTYPE HTML' |
-    \   setf tt2html |
-    \ else |
-    \   setf tt2 |
-    \ endif
+" au BufNewFile,BufRead *.tt2
+"     \ if ( getline(1) . getline(2) . getline(3) =~ '<\chtml'
+"     \           && getline(1) . getline(2) . getline(3) !~ '<[%?]' )
+"     \   || getline(1) =~ '<!DOCTYPE HTML' |
+"     \   setf tt2html |
+"     \ else |
+"     \   setf tt2 |
+"     \ endif
+
+" set template toolkit template files to be syntax highlighted as html
+autocmd bufread *.tt set filetype=tt2html
 
 let b:tt2_syn_tags = '\[% %] <!-- -->' 
 
@@ -169,6 +176,7 @@ Bundle "snipMate"
 Bundle "SuperTab"
 Bundle "surround.vim"
 Bundle "unimpaired.vim"
+Bundle "https://github.com/petdance/vim-perl.git"
 
 "-------------------------------------------------------------------------------
 "" host-specific setup
