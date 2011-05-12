@@ -178,9 +178,9 @@ Bundle "unimpaired.vim"
 "-------------------------------------------------------------------------------
 " solarized
 
-Bundle "https://github.com/altercation/vim-colors-solarized.git"
-set background=dark
-colorscheme solarized
+" Bundle "https://github.com/altercation/vim-colors-solarized.git"
+" set background=dark
+" colorscheme solarized
 
 "-------------------------------------------------------------------------------
 " everything else...
