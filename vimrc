@@ -205,11 +205,3 @@ if filereadable(hostfile)
   exe 'source '.hostfile
 endif
 
-"-------------------------------------------------------------------------------
-" host-specific setup
-
-let hostfile=expand('$HOME/.vim/vimrc-'.hostname())
-if filereadable(hostfile)
-  exe 'source '.hostfile
-endif
-
