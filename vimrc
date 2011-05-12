@@ -64,8 +64,8 @@ map <leader>du yypkgccj
 nnoremap <leader>nn :set number!<CR>
 
 " toggle mouse
-nmap <leader>mo :set mouse=<CR>
-nmap <leader>mO :set mouse=a<CR>
+nmap <leader>mo :set mouse=a<CR>
+nmap <leader>mO :set mouse=<CR>
 
 " abbreviations
 iab __HOME__  /nfs/users/nfs_j/jt6
@@ -177,16 +177,30 @@ Bundle "unimpaired.vim"
 "vmap <C-Down> ]egv
 
 "-------------------------------------------------------------------------------
+" solarized
+
+Bundle "https://github.com/altercation/vim-colors-solarized.git"
+set background=dark
+colorscheme solarized
+
+"-------------------------------------------------------------------------------
 " everything else...
 
 Bundle "Align"
 Bundle "bufexplorer.zip"
 " Bundle "Command-T"
-Bundle "git://git.wincent.com/command-t.git"
+Bundle "https://github.com/wincent/Command-T.git"
 Bundle "repeat.vim"
 Bundle "sessionman.vim"
 Bundle "snipMate"
 Bundle "SuperTab"
 Bundle "surround.vim"
-Bundle "ack.vim"
+
+"-------------------------------------------------------------------------------
+" host-specific setup
+
+let hostfile=expand('$HOME/.vim/vimrc-'.hostname())
+if filereadable(hostfile)
+  exe 'source '.hostfile
+endif
 
