@@ -32,6 +32,7 @@ set bg=light                   " duh
 set gdefault                   " make all search-and-replace operations global
 set cpoptions=B$               " show existing content when changing text, and show a '$'
                                " at the end of the content that is to be changed.
+set splitright                 " put new split windows on the right rather than the left
 
 " make matching parens readable !
 hi MatchParen ctermfg=5
@@ -116,11 +117,11 @@ call vundle#rc()
 " NERDTree
 Bundle "The-NERD-tree"
 Bundle "NERD_Tree-and-ack"
-
+" 
 let NERDTreeQuitOnOpen=1
 let NERDTreeHighlightCursorLine=1
 let NERDTreeChDirMode=2
-
+" 
 " open NERDTree
 nmap <silent> <leader>nt :NERDTreeToggle<CR>
 
@@ -135,21 +136,21 @@ let VCSCommandMapPrefix="<Leader>v"
 " LustyJuggler and LustyExplorer
 Bundle "LustyExplorer"
 Bundle "LustyJuggler"
-
-" add an extra mapping for LustyExplorer
+" 
+" " add an extra mapping for LustyExplorer
 map <leader>lh :LustyFilesystemExplorerFromHere<CR>
 
 "-------------------------------------------------------------------------------
 " tComment
 Bundle "tComment"
-
+" 
 nnoremap // :TComment<CR>
 vnoremap // :TComment<CR>
 
 "-------------------------------------------------------------------------------
 " Ack
 Bundle "ack.vim"
-
+" 
 noremap <LocalLeader># "ayiw:Ack <C-r>a<CR>
 vnoremap <LocalLeader># "ay:Ack <C-r>a<CR>
 
@@ -160,7 +161,8 @@ Bundle "taglist.vim"
 let Tlist_perl_settings = 'perl;c:constant;l:label;p:package;s:subroutine;a:attribute'
 let Tlist_GainFocus_On_ToggleOpen = 1
 let Tlist_Close_On_Select = 1
-
+let Tlist_Show_One_File = 1
+ 
 nnoremap <leader>tl :TlistToggle<CR>
 
 "-------------------------------------------------------------------------------
@@ -192,7 +194,7 @@ Bundle "https://github.com/wincent/Command-T.git"
 Bundle "repeat.vim"
 Bundle "sessionman.vim"
 Bundle "snipMate"
-Bundle "SuperTab"
+Bundle "https://github.com/ervandew/supertab.git"
 Bundle "surround.vim"
 Bundle "unimpaired.vim"
 Bundle "https://github.com/petdance/vim-perl.git"
