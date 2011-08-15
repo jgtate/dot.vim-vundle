@@ -1,6 +1,9 @@
 # Stash variable
 snippet sv
 	$c->stash->{${1:key}}
+# request parameter
+snippet crp
+	$c->req->param('${1:param}')
 # Debug message
 snippet db
 	$c->log->debug( ${1:message} )
