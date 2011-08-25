@@ -198,6 +198,7 @@ Bundle "https://github.com/ervandew/supertab.git"
 Bundle "surround.vim"
 Bundle "unimpaired.vim"
 Bundle "https://github.com/petdance/vim-perl.git"
+Bundle "matchit.zip"
 
 "-------------------------------------------------------------------------------
 "" host-specific setup
