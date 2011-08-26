@@ -110,8 +110,11 @@ let b:tt2_syn_tags = '\[% %] <!-- -->'
 "- plugin configurations -------------------------------------------------------
 "-------------------------------------------------------------------------------
 
-set rtp+=~/.vim/vundle.git
+" set rtp+=~/.vim/vundle.git
+set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
+
+Bundle "gmarik/vundle"
 
 "-------------------------------------------------------------------------------
 " NERDTree
@@ -198,7 +201,7 @@ Bundle "https://github.com/ervandew/supertab.git"
 Bundle "surround.vim"
 Bundle "unimpaired.vim"
 Bundle "https://github.com/petdance/vim-perl.git"
-Bundle "matchit.zip"
+Bundle "git://github.com/tsaleh/vim-matchit.git"
 
 "-------------------------------------------------------------------------------
 "" host-specific setup
