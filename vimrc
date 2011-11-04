@@ -1,10 +1,9 @@
 
-set nocompatible
+set nocompatible 
 filetype plugin on
 
 " colour setup
-"colorscheme zellner
-"colorscheme delek
+"colorscheme zellner colorscheme delek
 "colorscheme emacs
 syntax on
 
@@ -106,6 +105,12 @@ autocmd bufread *.tt set filetype=tt2html
 
 let b:tt2_syn_tags = '\[% %] <!-- -->' 
 
+" set a mapping to toggle between the two previously used tabs
+au TabLeave * :let g:tabno = tabpagenr()
+map T :exec 'normal !'.g:tabno.'gt'<cr> 
+
+source $VIMRUNTIME/macros/matchit.vim
+
 "-------------------------------------------------------------------------------
 "- plugin configurations -------------------------------------------------------
 "-------------------------------------------------------------------------------
@@ -174,11 +179,11 @@ nnoremap <leader>tl :TlistToggle<CR>
 Bundle "unimpaired.vim"
 
 " Bubble single lines
-"nmap <C-Up> [e
-"nmap <C-Down> ]e
+nmap <C-Up> [e
+nmap <C-Down> ]e
 " Bubble multiple lines
-"vmap <C-Up> [egv
-"vmap <C-Down> ]egv
+vmap <C-Up> [egv
+vmap <C-Down> ]egv
 
 "-------------------------------------------------------------------------------
 " solarized
@@ -188,11 +193,21 @@ Bundle "unimpaired.vim"
 " colorscheme solarized
 
 "-------------------------------------------------------------------------------
+" BufferGator
+
+Bundle "Buffergator"
+
+let g:buffergator_suppress_keymaps=1
+let g:buffergator_display_regime="bufname"
+
+nmap <leader>bg :BuffergatorToggle<CR>
+nmap <leader>gg :BuffergatorTabsToggle<CR>
+
+"-------------------------------------------------------------------------------
 " everything else...
 
 Bundle "Align"
 Bundle "bufexplorer.zip"
-" Bundle "Command-T"
 Bundle "https://github.com/wincent/Command-T.git"
 Bundle "repeat.vim"
 Bundle "sessionman.vim"
