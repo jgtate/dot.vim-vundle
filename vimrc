@@ -66,6 +66,9 @@ nnoremap <leader>ro :set readonly!<CR>
 nmap <leader>mo :set mouse=a<CR>
 nmap <leader>mO :set mouse=<CR>
 
+" close buffer
+map <F4> :q<CR>
+
 " abbreviations
 iab __HOME__  /nfs/users/nfs_j/jt6
 iab strictl   strict;
@@ -107,9 +110,10 @@ let b:tt2_syn_tags = '\[% %] <!-- -->'
 
 " set a mapping to toggle between the two previously used tabs
 au TabLeave * :let g:tabno = tabpagenr()
-map T :exec 'normal !'.g:tabno.'gt'<cr> 
+map tt :exec 'normal !'.g:tabno.'gt'<cr> 
 
-source $VIMRUNTIME/macros/matchit.vim
+" toggle "set paste"
+set pastetoggle=<F10>
 
 "-------------------------------------------------------------------------------
 "- plugin configurations -------------------------------------------------------
@@ -195,20 +199,26 @@ vmap <C-Down> ]egv
 "-------------------------------------------------------------------------------
 " BufferGator
 
-Bundle "Buffergator"
+" Bundle "Buffergator"
+" 
+" let g:buffergator_suppress_keymaps=1
+" let g:buffergator_display_regime="bufname"
+" 
+" nmap <leader>bg :BuffergatorToggle<CR>
+" nmap <leader>gg :BuffergatorTabsToggle<CR>
 
-let g:buffergator_suppress_keymaps=1
-let g:buffergator_display_regime="bufname"
+"-------------------------------------------------------------------------------
+" Command-T
 
-nmap <leader>bg :BuffergatorToggle<CR>
-nmap <leader>gg :BuffergatorTabsToggle<CR>
+Bundle "https://github.com/wincent/Command-T.git"
+
+nnoremap <C-t> :CommandT<CR>
 
 "-------------------------------------------------------------------------------
 " everything else...
 
 Bundle "Align"
 Bundle "bufexplorer.zip"
-Bundle "https://github.com/wincent/Command-T.git"
 Bundle "repeat.vim"
 Bundle "sessionman.vim"
 Bundle "snipMate"
@@ -219,7 +229,7 @@ Bundle "https://github.com/petdance/vim-perl.git"
 Bundle "git://github.com/tsaleh/vim-matchit.git"
 
 "-------------------------------------------------------------------------------
-"" host-specific setup
+" host-specific setup
 
 let hostfile=expand('$HOME/.vim/vimrc-'.hostname())
 if filereadable(hostfile)
