@@ -59,6 +59,9 @@ map <leader>du yypkgccj
 " toggle line numbers
 nnoremap <leader>nn :set number!<CR>
 
+" toggle relative line numbers
+nnoremap <leader>nr :set relativenumber<CR>
+
 " toggle buffer read-only
 nnoremap <leader>ro :set readonly!<CR>
 
