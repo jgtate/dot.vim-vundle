@@ -227,6 +227,7 @@ Bundle "surround.vim"
 Bundle "unimpaired.vim"
 Bundle "https://github.com/petdance/vim-perl.git"
 Bundle "git://github.com/tsaleh/vim-matchit.git"
+Bundle 'EasyMotion'
 
 "-------------------------------------------------------------------------------
 " host-specific setup
