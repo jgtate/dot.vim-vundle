@@ -7,10 +7,15 @@ filetype plugin on
 "colorscheme emacs
 syntax on
 
+" folding set up 
+highlight Folded     ctermbg=0
+" highlight FoldColumn ctermbg=0
+" set foldcolumn=1
+
 let mapleader = "," " make comma the leader. Easier to get to on the MB than backslash
 
 set expandtab                  "\
-set tabstop=2                  " ) make tabs two spaces
+set softtabstop=2              " ) make tabs two spaces
 set shiftwidth=2               "/
 set mouse=a                    "\ turn on mouse control
 set ttymouse=xterm2            "/
@@ -27,50 +32,35 @@ set backspace=indent,eol,start " make the backspace key work for indents, work p
                                " the end of a line, and paste the start of an
                                " insertion
 set whichwrap+=<,>,h,l         " make left and right movements wrap across lines
-set bg=light                   " duh
 set gdefault                   " make all search-and-replace operations global
 set cpoptions=B$               " show existing content when changing text, and show a '$'
                                " at the end of the content that is to be changed.
 set splitright                 " put new split windows on the right rather than the left
+set bg=dark                    " duh
 
 " make matching parens readable !
 hi MatchParen ctermfg=5
 
 " general key mappings
 
-" save buffer(s)
-nmap <leader>s  :w<CR>
-nmap <leader>sa :wa<CR>
-
-" toggle highlighting of search terms
-noremap <silent> <C-n> :se invhlsearch<CR>
-
-" map control + movement keys to 'switch to split'
-map <C-H> <C-W>h
+map <C-H> <C-W>h " map control + movement keys to 'switch to split'
 map <C-J> <C-W>j
 map <C-K> <C-W>k
 map <C-L> <C-W>l
 
-" duplicate the current line and comment the original
-map <leader>du yypkgccj
+map <leader>du yypkgccj    " duplicate the current line and comment the original
 
-" noremap K :!perldoc <cword> <bar><bar> perldoc -f <cword><cr> " map 'K' to perldoc
-
-" toggle line numbers
-nnoremap <leader>nn :set number!<CR>
-
-" toggle relative line numbers
-nnoremap <leader>nr :set relativenumber<CR>
-
-" toggle buffer read-only
-nnoremap <leader>ro :set readonly!<CR>
-
-" toggle mouse
-nmap <leader>mo :set mouse=a<CR>
-nmap <leader>mO :set mouse=<CR>
-
-" close buffer
-map <F4> :q<CR>
+nmap     <leader>s      :w<CR>                  " save currentbuffer
+nmap     <leader>sa     :wa<CR>                 " save all buffer
+noremap  <silent> <C-n> :se invhlsearch<CR>     " toggle highlighting of search terms
+nnoremap <leader>nn     :set number!<CR>        " toggle line numbers
+nnoremap <leader>nr     :set relativenumber<CR> " toggle relative line numbers
+nnoremap <leader>ro     :set readonly!<CR>      " toggle buffer read-only
+nmap     <leader>mo     :set mouse=a<CR>        "\toggle mouse on and off
+nmap     <leader>mO     :set mouse=<CR>         "/
+imap ii <C-[>                                   " map "ii" to escape
+map n nzz                                       "\make "n" and "N" centre search term
+map N Nzz                                       "/
 
 " abbreviations
 iab __HOME__  /nfs/users/nfs_j/jt6
@@ -122,6 +112,8 @@ set pastetoggle=<F10>
 "- plugin configurations -------------------------------------------------------
 "-------------------------------------------------------------------------------
 
+runtime macros/matchit.vim
+
 " set rtp+=~/.vim/vundle.git
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -130,6 +122,7 @@ Bundle "gmarik/vundle"
 
 "-------------------------------------------------------------------------------
 " NERDTree
+
 Bundle "The-NERD-tree"
 Bundle "NERD_Tree-and-ack"
 " 
@@ -142,6 +135,7 @@ nmap <silent> <leader>nt :NERDTreeToggle<CR>
 
 "-------------------------------------------------------------------------------
 " VCSCommand
+
 Bundle "vcscommand.vim"
 
 " reset the command prefix
@@ -149,18 +143,12 @@ let VCSCommandMapPrefix="<Leader>v"
 
 "-------------------------------------------------------------------------------
 " LustyJuggler and LustyExplorer
+
 Bundle "LustyExplorer"
 Bundle "LustyJuggler"
 " 
 " " add an extra mapping for LustyExplorer
 map <leader>lh :LustyFilesystemExplorerFromHere<CR>
-
-"-------------------------------------------------------------------------------
-" tComment
-Bundle "tComment"
-" 
-nnoremap // :TComment<CR>
-vnoremap // :TComment<CR>
 
 "-------------------------------------------------------------------------------
 " Ack
@@ -171,6 +159,7 @@ vnoremap <LocalLeader># "ay:Ack <C-r>a<CR>
 
 "-------------------------------------------------------------------------------
 " Taglist
+
 Bundle "taglist.vim"
 
 let Tlist_perl_settings = 'perl;c:constant;l:label;p:package;s:subroutine;a:attribute'
@@ -195,20 +184,9 @@ vmap <C-Down> ]egv
 "-------------------------------------------------------------------------------
 " solarized
 
-" Bundle "https://github.com/altercation/vim-colors-solarized.git"
-" set background=dark
-" colorscheme solarized
-
-"-------------------------------------------------------------------------------
-" BufferGator
-
-" Bundle "Buffergator"
-" 
-" let g:buffergator_suppress_keymaps=1
-" let g:buffergator_display_regime="bufname"
-" 
-" nmap <leader>bg :BuffergatorToggle<CR>
-" nmap <leader>gg :BuffergatorTabsToggle<CR>
+Bundle "https://github.com/altercation/vim-colors-solarized.git"
+let g:solarized_termtrans=1
+colorscheme solarized
 
 "-------------------------------------------------------------------------------
 " Command-T
@@ -216,6 +194,24 @@ vmap <C-Down> ]egv
 Bundle "https://github.com/wincent/Command-T.git"
 
 nnoremap <C-t> :CommandT<CR>
+
+"-------------------------------------------------------------------------------
+" Powerline
+
+set encoding=utf-8
+set laststatus=2
+Bundle "https://github.com/Lokaltog/vim-powerline"
+let g:Powerline_symbols = 'fancy'
+set t_Co=256
+
+"-------------------------------------------------------------------------------
+" Syntastic
+
+Bundle 'Syntastic'
+
+let g:syntastic_mode_map = { 'mode': 'active',
+                           \ 'active_filetypes':  ['perl'],
+                           \ 'passive_filetypes': [] }
 
 "-------------------------------------------------------------------------------
 " everything else...
@@ -230,7 +226,10 @@ Bundle "surround.vim"
 Bundle "unimpaired.vim"
 Bundle "https://github.com/petdance/vim-perl.git"
 Bundle "git://github.com/tsaleh/vim-matchit.git"
-Bundle 'EasyMotion'
+Bundle "EasyMotion"
+Bundle 'camelcasemotion'
+Bundle 'tComment'
+Bundle "IndexedSearch"
 
 "-------------------------------------------------------------------------------
 " host-specific setup
@@ -239,4 +238,6 @@ let hostfile=expand('$HOME/.vim/vimrc-'.hostname())
 if filereadable(hostfile)
   exe 'source '.hostfile
 endif
+
+set bg=dark
 
