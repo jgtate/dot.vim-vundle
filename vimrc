@@ -110,6 +110,17 @@ map tt :exec 'normal !'.g:tabno.'gt'<cr>
 " toggle "set paste"
 set pastetoggle=<F10>
 
+" make "*" work on visual selections
+function! s:VSetSearch()
+  let temp = @@
+  norm! gvy
+  let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
+  let @@ = temp
+endfunction
+
+vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR>
+vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
+
 "-------------------------------------------------------------------------------
 "- plugin configurations -------------------------------------------------------
 "-------------------------------------------------------------------------------
