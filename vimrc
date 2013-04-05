@@ -37,6 +37,8 @@ set cpoptions=B$               " show existing content when changing text, and s
                                " at the end of the content that is to be changed.
 set splitright                 " put new split windows on the right rather than the left
 set bg=dark                    " duh
+set smarttab                   " make 'tab' spaces behave like tabs, on delete as well as insertion
+set softtabstop=2              " make these smart tabs two spaces
 
 " make matching parens readable !
 hi MatchParen ctermfg=5
@@ -207,11 +209,11 @@ set t_Co=256
 "-------------------------------------------------------------------------------
 " Syntastic
 
-Bundle 'Syntastic'
-
-let g:syntastic_mode_map = { 'mode': 'active',
-                           \ 'active_filetypes':  ['perl'],
-                           \ 'passive_filetypes': [] }
+" Bundle 'Syntastic'
+" 
+" let g:syntastic_mode_map = { 'mode': 'active',
+"                            \ 'active_filetypes':  ['perl'],
+"                            \ 'passive_filetypes': [] }
 
 "-------------------------------------------------------------------------------
 " everything else...
