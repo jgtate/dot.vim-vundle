@@ -3,6 +3,7 @@ set nocompatible
 filetype plugin on
 
 " colour setup
+set t_Co=256
 "colorscheme zellner colorscheme delek
 "colorscheme emacs
 syntax on
@@ -31,7 +32,8 @@ set bg=light                   " duh
 set gdefault                   " make all search-and-replace operations global
 set cpoptions=B$               " show existing content when changing text, and show a '$'
                                " at the end of the content that is to be changed.
-set splitright                 " put new split windows on the right rather than the left
+set splitright                 " put new split windows on the right or below the current
+set splitbelow                 " one, rather than to the left or above
 
 " make matching parens readable !
 hi MatchParen ctermfg=5
@@ -107,7 +109,8 @@ nmap <silent> <F3> :set go+=m<CR> " turn on  the menubar
 "     \ endif
 
 " set template toolkit template files to be syntax highlighted as html
-autocmd bufread *.tt set filetype=tt2html
+autocmd bufread *.tt set filetype=tt2
+" autocmd bufread *.tt set filetype=tt2html
 
 let b:tt2_syn_tags = '\[% %] <!-- -->' 
 
@@ -118,12 +121,29 @@ map tt :exec 'normal !'.g:tabno.'gt'<cr>
 " toggle "set paste"
 set pastetoggle=<F10>
 
+"Perl Tidy
+"define :Tidy command to run perltidy on visual selection || entire buffer"
+command -range=% -nargs=* Tidy <line1>,<line2>!perltidy -l=132 -ci=2 -i=2 -nsfs -bar -bbb -bbs -bbc -anl -otr
+
+"run :Tidy on entire buffer and return cursor to (approximate) original position"
+fun DoTidy()
+    let Pos = line2byte( line( "." ) )
+    :Tidy
+    exe "goto " . Pos
+endfun
+
+"shortcut for normal mode to run on entire buffer then return to current line"
+au Filetype perl nmap <leader>pt :call DoTidy()<CR>
+
+"shortcut for visual mode to run on the the current visual selection"
+au Filetype perl vmap <leader>pt :Tidy<CR>
+
 "-------------------------------------------------------------------------------
 "- plugin configurations -------------------------------------------------------
 "-------------------------------------------------------------------------------
 
 " set rtp+=~/.vim/vundle.git
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~jgt/.vim/bundle/vundle/
 call vundle#rc()
 
 Bundle "gmarik/vundle"
@@ -171,14 +191,14 @@ vnoremap <LocalLeader># "ay:Ack <C-r>a<CR>
 
 "-------------------------------------------------------------------------------
 " Taglist
-Bundle "taglist.vim"
-
-let Tlist_perl_settings = 'perl;c:constant;l:label;p:package;s:subroutine;a:attribute'
-let Tlist_GainFocus_On_ToggleOpen = 1
-let Tlist_Close_On_Select = 1
-let Tlist_Show_One_File = 1
- 
-nnoremap <leader>tl :TlistToggle<CR>
+" Bundle "taglist.vim"
+" 
+" let Tlist_perl_settings = 'perl;c:constant;l:label;p:package;s:subroutine;a:attribute'
+" let Tlist_GainFocus_On_ToggleOpen = 1
+" let Tlist_Close_On_Select = 1
+" let Tlist_Show_One_File = 1
+"  
+" nnoremap <leader>tl :TlistToggle<CR>
 
 "-------------------------------------------------------------------------------
 " Unimpaired
@@ -218,6 +238,14 @@ Bundle "https://github.com/wincent/Command-T.git"
 nnoremap <C-t> :CommandT<CR>
 
 "-------------------------------------------------------------------------------
+" airline
+
+Bundle "bling/vim-airline"
+let g:airline_powerline_fonts = 1
+set laststatus=2
+let g:airline#extensions#tmuxline#enabled = 1
+
+"-------------------------------------------------------------------------------
 " everything else...
 
 Bundle "Align"
@@ -228,7 +256,7 @@ Bundle "snipMate"
 Bundle "https://github.com/ervandew/supertab.git"
 Bundle "surround.vim"
 Bundle "unimpaired.vim"
-Bundle "https://github.com/petdance/vim-perl.git"
+Bundle "https://github.com/vim-perl/vim-perl.git"
 Bundle "git://github.com/tsaleh/vim-matchit.git"
 Bundle 'EasyMotion'
 
