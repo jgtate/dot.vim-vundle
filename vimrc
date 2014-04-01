@@ -60,8 +60,8 @@ nnoremap <leader>nr     :set relativenumber<CR> " toggle relative line numbers
 nnoremap <leader>ro     :set readonly!<CR>      " toggle buffer read-only
 nmap     <leader>mo     :set mouse=a<CR>        "\toggle mouse on and off
 nmap     <leader>mO     :set mouse=<CR>         "/
-" map n nzz                                       "\make "n" and "N" centre search term
-" map N Nzz                                       "/
+noremap n nzz                                   "\make "n" and "N" centre search term
+noremap N Nzz                                   "/
 imap ii <C-[>                                   " map "ii" to escape
 
 " abbreviations
