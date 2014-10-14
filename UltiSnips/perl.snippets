@@ -1,0 +1,124 @@
+# Stash variable
+snippet sv "stash variable (sv)"
+\$c->stash->{${1:key}}
+endsnippet
+
+# request parameter
+snippet crp "request parameter (crp)"
+\$c->req->param('${1:param}')
+endsnippet
+
+# catalyst debug message
+snippet cdb "Catalyst debug message (cdb)"
+\$c->log->debug( ${1:message} )
+  if \$c->debug;
+endsnippet
+
+# general debug message; assumes the logger is in "_log"
+snippet sld "log a debug message; uses $self->_log (sld)"
+\$self->_log->debug( '${1:message}' );
+endsnippet
+
+snippet tld "log a debug message; uses $this->_log (sld)"
+\$this->_log->debug( '${1:message}' );
+endsnippet
+
+# line separators
+snippet sl "short line separator (sl)" b
+#---------------------------------------
+$0
+endsnippet
+
+snippet ll "long line separator (ll)" b
+#-------------------------------------------------------------------------------
+$0
+endsnippet
+
+snippet "ban(ner)?"  "three-line banner separator (ban)" br
+#-------------------------------------------------------------------------------
+#- ${1:Text} `!p snip.rv = ( 76-len(t[1]))*'-' `
+#-------------------------------------------------------------------------------
+
+endsnippet
+
+# chunks of code...
+
+snippet sub "subroutine template (sub)" b
+sub ${1:subname} {
+  ${0:body}
+}
+
+endsnippet
+
+snippet "meth(od)?" "class method template (meth)" br
+sub ${1:method} {
+  my ( $self${2:, $args} ) = @_;
+
+  ${0:body}
+}
+
+endsnippet
+
+snippet mc "Moose class template (mc)" b
+
+package ${1:package name};
+
+use Moose;
+use namespace::autoclean;
+
+use Log::Log4perl qw( get_logger );
+
+#-------------------------------------------------------------------------------
+#- configure logging -----------------------------------------------------------
+#-------------------------------------------------------------------------------
+
+my $logger_conf = q(
+  log4perl.appender.Screen                          = Log::Log4perl::Appender::Screen
+  log4perl.appender.Screen.layout                   = Log::Log4perl::Layout::PatternLayout
+  log4perl.appender.Screen.layout.ConversionPattern = %M:%L %p: %m%n
+  log4perl.logger.Bio.Rfam.View::Dequeuer           = INFO, Screen
+);
+
+has '_log' => (
+  is      => 'ro',
+  isa     => 'Log::Log4perl::Logger',
+  lazy    => 1,
+  default => sub {
+    my $self = shift;
+    Log::Log4perl->init_once( \\$logger_conf );
+    return Log::Log4perl->get_logger( ref $self );
+  }
+);
+
+#-------------------------------------------------------------------------------
+#- private attributes ----------------------------------------------------------
+#-------------------------------------------------------------------------------
+
+$0# none
+
+#-------------------------------------------------------------------------------
+#- public attributes -----------------------------------------------------------
+#-------------------------------------------------------------------------------
+
+# none
+
+#-------------------------------------------------------------------------------
+#- methods ---------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+
+# none
+
+#-------------------------------------------------------------------------------
+#- private methods -------------------------------------------------------------
+#-------------------------------------------------------------------------------
+
+# none
+
+#-------------------------------------------------------------------------------
+
+__PACKAGE__->meta->make_immutable;
+
+1;
+
+endsnippet
+
