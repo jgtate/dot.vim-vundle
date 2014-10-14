@@ -1,6 +1,5 @@
 
 set nocompatible
-filetype plugin on
 
 " colour setup
 set t_Co=256
@@ -45,41 +44,48 @@ hi MatchParen ctermfg=5
 
 " general key mappings
 
-map <C-H> <C-W>h " map control + movement keys to 'switch to split'
+" map control + movement keys to 'switch to split'
+map <C-H> <C-W>h
 map <C-J> <C-W>j
 map <C-K> <C-W>k
 map <C-L> <C-W>l
 
-map <leader>du yypkgccj    " duplicate the current line and comment the original
+" duplicate the current line and comment the original
+map <leader>du yypkgccj
 
-nmap     <leader>s      :w<CR>                  " save currentbuffer
-nmap     <leader>sa     :wa<CR>                 " save all buffer
-noremap  <silent> <C-n> :se invhlsearch<CR>     " toggle highlighting of search terms
-nnoremap <leader>nn     :set number!<CR>        " toggle line numbers
-nnoremap <leader>nr     :set relativenumber<CR> " toggle relative line numbers
-nnoremap <leader>ro     :set readonly!<CR>      " toggle buffer read-only
-nmap     <leader>mo     :set mouse=a<CR>        "\toggle mouse on and off
-nmap     <leader>mO     :set mouse=<CR>         "/
-noremap n nzz                                   "\make "n" and "N" centre search term
-noremap N Nzz                                   "/
-imap ii <C-[>                                   " map "ii" to escape
+" save currentbuffer
+nmap     <leader>s      :w<CR>
+" save all buffers
+nmap     <leader>sa     :wa<CR>
+" toggle highlighting of search terms
+nnoremap  <silent> <C-n> :se invhlsearch<CR>
+" toggle line numbers
+nnoremap <leader>nn     :set number!<CR>
+" toggle relative line numbers
+nnoremap <leader>nr     :set relativenumber<CR>
+" toggle buffer read-only
+nnoremap <leader>ro     :set readonly!<CR>
+"\toggle mouse on and off
+nmap     <leader>mo     :set mouse=a<CR>
+"/
+nmap     <leader>mO     :set mouse=<CR>
+" noremap n nzz                                   "\make "n" and "N" centre search term
+" noremap N Nzz                                   "/
+" map "ii" to escape
+inoremap ii <ESC>
 
 " abbreviations
 iab __HOME__  /nfs/users/nfs_j/jt6
 iab strictl   strict;
 iab warningsl warnings;
 
-" switch off syntax highlighting for pdb files
-autocmd bufenter *.ent setlocal syntax=
-autocmd bufenter *.pdb setlocal syntax=
-
 " subvert the "make" command to compile perl
 autocmd filetype perl set makeprg=$VIMRUNTIME/tools/efm_perl.pl\ -c\ %\ $*
 autocmd filetype perl set errorformat=%f:%l:%m
 autocmd filetype perl set autowrite
 
-" use perltidy to clean up perl code (hit "=")
-autocmd Filetype perl :set equalprg=perltidy
+" set perl tests to be perl files
+autocmd BufNewFile,BufRead *.t setf perl
 
 " setup the GUI
 " set guifont=-misc-monospace-medium-r-semicondensed-*-*-110-*-*-c-*-koi8-r
@@ -89,37 +95,39 @@ nmap <silent> <F2> :set go-=m<CR> " turn off the menubar
 nmap <silent> <F3> :set go+=m<CR> " turn on  the menubar
 
 " for TT2 syntax highlighting
-" au BufNewFile,BufRead *.tt2
-"     \ if ( getline(1) . getline(2) . getline(3) =~ '<\chtml'
-"     \           && getline(1) . getline(2) . getline(3) !~ '<[%?]' )
-"     \   || getline(1) =~ '<!DOCTYPE HTML' |
-"     \   setf tt2html |
-"     \ else |
-"     \   setf tt2 |
-"     \ endif
-
-" set template toolkit template files to be syntax highlighted as html
-autocmd bufread *.tt set filetype=tt2html
+au BufNewFile,BufRead *.tt setf tt2html
+" au BufNewFile,BufRead *.tt
+" \ if (   getline(1) . getline(2) . getline(3) =~ '<\chtml' 
+" \     && getline(1) . getline(2) . getline(3) !~ '<[%?]' )
+" \     || getline(1) =~ '<!DOCTYPE HTML'
+" \   setf tt2html 
+" \ else 
+" \   setf tt2 
+" \ endif
 
 let b:tt2_syn_tags = '\[% %] <!-- -->'
 
 " set a mapping to toggle between the two previously used tabs
-au TabLeave * :let g:tabno = tabpagenr()
-map tt :exec 'normal !'.g:tabno.'gt'<cr>
+let g:lasttab = 1
+nmap <silent> tt :exe "tabn ".g:lasttab<cr>
+au TabLeave * :let g:lasttab = tabpagenr()
 
 " toggle "set paste"
 set pastetoggle=<F10>
 
-"Perl Tidy
-"define :Tidy command to run perltidy on visual selection || entire buffer"
-command -range=% -nargs=* Tidy <line1>,<line2>!perltidy -l=132 -ci=2 -i=2 -nsfs -bar -bbb -bbs -bbc -anl -otr
-
-"run :Tidy on entire buffer and return cursor to (approximate) original position"
-fun DoTidy()
-    let Pos = line2byte( line( "." ) )
-    :Tidy
-    exe "goto " . Pos
-endfun
+" "Perl Tidy
+" " use perltidy to clean up perl code (hit "=")
+" autocmd Filetype perl :set equalprg=perltidy
+" 
+" "define :Tidy command to run perltidy on visual selection || entire buffer"
+" command -range=% -nargs=* Tidy <line1>,<line2>!perltidy -l=132 -ci=2 -i=2 -nsfs -bar -bbb -bbs -bbc -anl -otr
+" 
+" "run :Tidy on entire buffer and return cursor to (approximate) original position"
+" fun DoTidy()
+"     let Pos = line2byte( line( "." ) )
+"     :Tidy
+"     exe "goto " . Pos
+" endfun
 
 "shortcut for normal mode to run on entire buffer then return to current line"
 au Filetype perl nmap <leader>pt :call DoTidy()<CR>
@@ -131,19 +139,20 @@ au Filetype perl vmap <leader>pt :Tidy<CR>
 "- plugin configurations -------------------------------------------------------
 "-------------------------------------------------------------------------------
 
-runtime macros/matchit.vim
+" runtime macros/matchit.vim
 
-" set rtp+=~/.vim/vundle.git
-set rtp+=~jgt/.vim/bundle/vundle/
-call vundle#rc()
+filetype off
 
-Bundle "gmarik/vundle"
+set rtp+=~jgt/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'gmarik/Vundle.vim'
 
 "-------------------------------------------------------------------------------
 " NERDTree
 
-Bundle "The-NERD-tree"
-Bundle "NERD_Tree-and-ack"
+Plugin 'The-NERD-tree'
+Plugin 'NERD_Tree-and-ack'
 "
 let NERDTreeQuitOnOpen=1
 let NERDTreeHighlightCursorLine=1
@@ -155,7 +164,7 @@ nmap <silent> <leader>nt :NERDTreeToggle<CR>
 "-------------------------------------------------------------------------------
 " VCSCommand
 
-Bundle "vcscommand.vim"
+Plugin 'vcscommand.vim'
 
 " reset the command prefix
 let VCSCommandMapPrefix="<Leader>v"
@@ -163,8 +172,8 @@ let VCSCommandMapPrefix="<Leader>v"
 "-------------------------------------------------------------------------------
 " LustyJuggler and LustyExplorer
 
-Bundle "LustyExplorer"
-Bundle "LustyJuggler"
+Plugin 'LustyExplorer'
+Plugin 'LustyJuggler'
 
 " add an extra mapping for LustyExplorer
 map <leader>lh :LustyFilesystemExplorerFromHere<CR>
@@ -172,15 +181,15 @@ map <leader>lh :LustyFilesystemExplorerFromHere<CR>
 "-------------------------------------------------------------------------------
 " Ack
 
-Bundle "ack.vim"
-
-noremap <LocalLeader># "ayiw:Ack <C-r>a<CR>
-vnoremap <LocalLeader># "ay:Ack <C-r>a<CR>
+" Plugin "ack.vim"
+" 
+" noremap <LocalLeader># "ayiw:Ack <C-r>a<CR>
+" vnoremap <LocalLeader># "ay:Ack <C-r>a<CR>
 
 "-------------------------------------------------------------------------------
 " Taglist
 "
-" Bundle "taglist.vim"
+" Plugin "taglist.vim"
 " 
 " let Tlist_perl_settings = 'perl;c:constant;l:label;p:package;s:subroutine;a:attribute'
 " let Tlist_GainFocus_On_ToggleOpen = 1
@@ -192,7 +201,7 @@ vnoremap <LocalLeader># "ay:Ack <C-r>a<CR>
 "-------------------------------------------------------------------------------
 " Unimpaired
 
-Bundle "unimpaired.vim"
+Plugin 'unimpaired.vim'
 
 " Bubble single lines
 nmap <C-Up> [e
@@ -204,42 +213,64 @@ vmap <C-Down> ]egv
 "-------------------------------------------------------------------------------
 " solarized
 
-" Bundle "https://github.com/altercation/vim-colors-solarized.git"
+" Plugin "https://github.com/altercation/vim-colors-solarized.git"
 " let g:solarized_termtrans=1
 " colorscheme solarized
 
 "-------------------------------------------------------------------------------
 " Command-T
 
-Bundle "https://github.com/wincent/Command-T.git"
+Plugin 'https://github.com/wincent/Command-T.git'
 
 nnoremap <C-t> :CommandT<CR>
 
 "-------------------------------------------------------------------------------
 " airline
 
-Bundle "bling/vim-airline"
+Plugin 'bling/vim-airline'
 let g:airline_powerline_fonts = 1
 set laststatus=2
 let g:airline#extensions#tmuxline#enabled = 1
 
 "-------------------------------------------------------------------------------
+" vim-search-pulse
+
+" not quite mature enough yet...
+" Plugin 'https://github.com/inside/vim-search-pulse.git'
+" let g:vim_search_pulse_mode = 'pattern'
+" let g:vim_search_pulse_duration = 400
+" nmap n n<Plug>PulseCursorLine
+" nmap N N<Plug>PulseCursorLine
+" nmap * *<Plug>PulseCursorLine
+" nmap # #<Plug>PulseCursorLine
+" " Pulses cursor line on first match
+" " " when doing search with / or ?
+" cmap <enter> <Plug>PulseFirst
+
+"-------------------------------------------------------------------------------
 " everything else...
 
-Bundle "Align"
-Bundle "bufexplorer.zip"
-Bundle "repeat.vim"
-Bundle "sessionman.vim"
-Bundle "snipMate"
-Bundle "https://github.com/ervandew/supertab.git"
-Bundle "surround.vim"
-Bundle "unimpaired.vim"
-Bundle "https://github.com/vim-perl/vim-perl.git"
-Bundle "git://github.com/tsaleh/vim-matchit.git"
-Bundle "EasyMotion"
-Bundle 'camelcasemotion'
-Bundle 'tComment'
-Bundle "IndexedSearch"
+Plugin 'Align'
+Plugin 'bufexplorer.zip'
+Plugin 'repeat.vim'
+Plugin 'sessionman.vim'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'surround.vim'
+Plugin 'https://github.com/vim-perl/vim-perl.git'
+Plugin 'EasyMotion'
+Plugin 'camelcasemotion'
+Plugin 'tComment'
+Plugin 'IndexedSearch'
+Plugin 'SirVer/ultisnips'
+Plugin 'ervandew/supertab'
+Plugin 'matchit.zip'
+
+"-------------------------------------------------------------------------------
+" all bundles must be added before here
+
+call vundle#end()
+filetype plugin indent on
 
 "-------------------------------------------------------------------------------
 " host-specific setup
