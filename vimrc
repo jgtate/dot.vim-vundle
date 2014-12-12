@@ -39,16 +39,26 @@ set cpoptions=B$               " show existing content when changing text, and s
 set splitright                 " put new split windows on the right or below the current
 set splitbelow                 " one, rather than to the left or above
 
+" setup the GUI
+" set guifont=-misc-monospace-medium-r-semicondensed-*-*-110-*-*-c-*-koi8-r
+set guifont=Inconsolata-dz\ for\ Powerline:h11
+set guioptions=aegirL
+" turn off the menubar
+nmap <silent> <F2> :set go-=m<CR>
+" turn on  the menubar
+nmap <silent> <F3> :set go+=m<CR>
+set guicursor+=a:blinkon0      " turn off the blinking cursor in the GUI
+
 " make matching parens readable !
 hi MatchParen ctermfg=5
 
 " general key mappings
 
 " map control + movement keys to 'switch to split'
-map <C-H> <C-W>h
-map <C-J> <C-W>j
-map <C-K> <C-W>k
-map <C-L> <C-W>l
+" map <C-H> <C-W>h
+" map <C-J> <C-W>j
+" map <C-K> <C-W>k
+" map <C-L> <C-W>l
 
 " duplicate the current line and comment the original
 map <leader>du yypkgccj
@@ -87,22 +97,15 @@ autocmd filetype perl set autowrite
 " set perl tests to be perl files
 autocmd BufNewFile,BufRead *.t setf perl
 
-" setup the GUI
-" set guifont=-misc-monospace-medium-r-semicondensed-*-*-110-*-*-c-*-koi8-r
-set guifont=Monospace\ 8
-set guioptions=aegirL
-nmap <silent> <F2> :set go-=m<CR> " turn off the menubar
-nmap <silent> <F3> :set go+=m<CR> " turn on  the menubar
-
 " for TT2 syntax highlighting
 au BufNewFile,BufRead *.tt setf tt2html
 " au BufNewFile,BufRead *.tt
-" \ if (   getline(1) . getline(2) . getline(3) =~ '<\chtml' 
+" \ if (   getline(1) . getline(2) . getline(3) =~ '<\chtml'
 " \     && getline(1) . getline(2) . getline(3) !~ '<[%?]' )
 " \     || getline(1) =~ '<!DOCTYPE HTML'
-" \   setf tt2html 
-" \ else 
-" \   setf tt2 
+" \   setf tt2html
+" \ else
+" \   setf tt2
 " \ endif
 
 let b:tt2_syn_tags = '\[% %] <!-- -->'
@@ -113,21 +116,22 @@ nmap <silent> tt :exe "tabn ".g:lasttab<cr>
 au TabLeave * :let g:lasttab = tabpagenr()
 
 " toggle "set paste"
-set pastetoggle=<F10>
+set pastetoggle=<Leader>pp
 
-" "Perl Tidy
-" " use perltidy to clean up perl code (hit "=")
-" autocmd Filetype perl :set equalprg=perltidy
-" 
-" "define :Tidy command to run perltidy on visual selection || entire buffer"
+" Perl Tidy
+" use perltidy to clean up perl code (hit "=")
+autocmd Filetype perl :set equalprg=perltidy
+
+" define :Tidy command to run perltidy on visual selection || entire buffer"
+command -range=% -nargs=* Tidy <line1>,<line2>!perltidy
 " command -range=% -nargs=* Tidy <line1>,<line2>!perltidy -l=132 -ci=2 -i=2 -nsfs -bar -bbb -bbs -bbc -anl -otr
-" 
-" "run :Tidy on entire buffer and return cursor to (approximate) original position"
-" fun DoTidy()
-"     let Pos = line2byte( line( "." ) )
-"     :Tidy
-"     exe "goto " . Pos
-" endfun
+
+" run :Tidy on entire buffer and return cursor to (approximate) original position"
+fun DoTidy()
+    let Pos = line2byte( line( "." ) )
+    :Tidy
+    exe "goto " . Pos
+endfun
 
 "shortcut for normal mode to run on entire buffer then return to current line"
 au Filetype perl nmap <leader>pt :call DoTidy()<CR>
@@ -143,7 +147,7 @@ au Filetype perl vmap <leader>pt :Tidy<CR>
 
 filetype off
 
-set rtp+=~jgt/.vim/bundle/Vundle.vim
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
@@ -182,7 +186,7 @@ map <leader>lh :LustyFilesystemExplorerFromHere<CR>
 " Ack
 
 " Plugin "ack.vim"
-" 
+"
 " noremap <LocalLeader># "ayiw:Ack <C-r>a<CR>
 " vnoremap <LocalLeader># "ay:Ack <C-r>a<CR>
 
@@ -190,12 +194,12 @@ map <leader>lh :LustyFilesystemExplorerFromHere<CR>
 " Taglist
 "
 " Plugin "taglist.vim"
-" 
+"
 " let Tlist_perl_settings = 'perl;c:constant;l:label;p:package;s:subroutine;a:attribute'
 " let Tlist_GainFocus_On_ToggleOpen = 1
 " let Tlist_Close_On_Select = 1
 " let Tlist_Show_One_File = 1
-" 
+"
 " nnoremap <leader>tl :TlistToggle<CR>
 
 "-------------------------------------------------------------------------------
@@ -213,14 +217,15 @@ vmap <C-Down> ]egv
 "-------------------------------------------------------------------------------
 " solarized
 
-" Plugin "https://github.com/altercation/vim-colors-solarized.git"
-" let g:solarized_termtrans=1
-" colorscheme solarized
+Plugin 'altercation/vim-colors-solarized'
+let g:solarized_termtrans=1
+set background=dark
+colorscheme solarized
 
 "-------------------------------------------------------------------------------
 " Command-T
 
-Plugin 'https://github.com/wincent/Command-T.git'
+Plugin 'wincent/Command-T'
 
 nnoremap <C-t> :CommandT<CR>
 
@@ -257,7 +262,7 @@ Plugin 'sessionman.vim'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'surround.vim'
-Plugin 'https://github.com/vim-perl/vim-perl.git'
+Plugin 'vim-perl/vim-perl'
 Plugin 'EasyMotion'
 Plugin 'camelcasemotion'
 Plugin 'tComment'
@@ -265,6 +270,7 @@ Plugin 'IndexedSearch'
 Plugin 'SirVer/ultisnips'
 Plugin 'ervandew/supertab'
 Plugin 'matchit.zip'
+Plugin 'christoomey/vim-tmux-navigator'
 
 "-------------------------------------------------------------------------------
 " all bundles must be added before here
