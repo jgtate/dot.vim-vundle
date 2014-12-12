@@ -147,7 +147,7 @@ au Filetype perl vmap <leader>pt :Tidy<CR>
 
 filetype off
 
-set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=~/.vim/Vundle.vim
 call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
