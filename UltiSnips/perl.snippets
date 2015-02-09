@@ -34,11 +34,22 @@ snippet ll "long line separator (ll)" b
 $0
 endsnippet
 
+snippet usw "add 'use strict' and 'use warnings'" b
+use strict;
+use warnings;
+$0
+endsnippet
+
 snippet "ban(ner)?"  "three-line banner separator (ban)" br
 #-------------------------------------------------------------------------------
 #- ${1:Text} `!p snip.rv = ( 76-len(t[1]))*'-' `
 #-------------------------------------------------------------------------------
 
+endsnippet
+
+snippet dbs "add a debugger breakpoint (dbs)" b
+$DB::single = 1;
+$0
 endsnippet
 
 # chunks of code...
