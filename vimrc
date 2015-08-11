@@ -38,6 +38,7 @@ set cpoptions=B$               " show existing content when changing text, and s
                                " at the end of the content that is to be changed.
 set splitright                 " put new split windows on the right or below the current
 set splitbelow                 " one, rather than to the left or above
+set modeline                   " take note of modelines in files
 
 " setup the GUI
 " set guifont=-misc-monospace-medium-r-semicondensed-*-*-110-*-*-c-*-koi8-r
@@ -72,7 +73,7 @@ nnoremap  <silent> <C-n> :se invhlsearch<CR>
 " toggle line numbers
 nnoremap <leader>nn     :set number!<CR>
 " toggle relative line numbers
-nnoremap <leader>nr     :set relativenumber<CR>
+nnoremap <leader>nr     :set relativenumber!<CR>
 " toggle buffer read-only
 nnoremap <leader>ro     :set readonly!<CR>
 "\toggle mouse on and off
@@ -83,6 +84,8 @@ nmap     <leader>mO     :set mouse=<CR>
 " noremap N Nzz                                   "/
 " map "ii" to escape
 inoremap ii <ESC>
+
+nmap <leader>nw :set wrap!<CR>
 
 " abbreviations
 iab __HOME__  /nfs/users/nfs_j/jt6
