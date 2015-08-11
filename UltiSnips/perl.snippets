@@ -5,7 +5,7 @@ endsnippet
 
 # request parameter
 snippet crp "request parameter (crp)"
-\$c->req->param('${1:param}')
+\$c->req->params->{${1:param}}
 endsnippet
 
 # catalyst debug message
@@ -17,10 +17,6 @@ endsnippet
 # general debug message; assumes the logger is in "_log"
 snippet sld "log a debug message; uses $self->_log (sld)"
 \$self->_log->debug( '${1:message}' );
-endsnippet
-
-snippet tld "log a debug message; uses $this->_log (sld)"
-\$this->_log->debug( '${1:message}' );
 endsnippet
 
 # line separators
@@ -62,16 +58,33 @@ sub ${1:subname} {
 endsnippet
 
 snippet "meth(od)?" "class method template (meth)" br
+
+#-------------------------------------------------------------------------------
+
+=head2 method
+
+Description
+
+=cut
+
 sub ${1:method} {
   my ( $self${2:, $args} ) = @_;
 
-  ${0:body}
+  # ${0:body}
 }
 
 endsnippet
 
-snippet mc "Moose class template (mc)" b
+snippet "act(ion)?" "Catalyst action template (act)" br
+sub ${1:action} {
+  my ( $self, $c ) = @_;
 
+  # ${0:body}
+}
+endsnippet
+
+snippet mc "Moose class template (mc)" b
+use utf8;
 package ${1:package name};
 
 use Moose;
@@ -87,7 +100,7 @@ my $logger_conf = q(
   log4perl.appender.Screen                          = Log::Log4perl::Appender::Screen
   log4perl.appender.Screen.layout                   = Log::Log4perl::Layout::PatternLayout
   log4perl.appender.Screen.layout.ConversionPattern = %M:%L %p: %m%n
-  log4perl.logger.Bio.Rfam.View::Dequeuer           = INFO, Screen
+  log4perl.logger.Bio.Rfam.View.Dequeuer            = INFO, Screen
 );
 
 has '_log' => (
@@ -131,5 +144,20 @@ __PACKAGE__->meta->make_immutable;
 
 1;
 
+endsnippet
+
+snippet if "'if' block template"
+if ( $0 ) {
+  
+}
+endsnippet
+
+snippet ife "'if-then-else' block template"
+if ( $0 ) {
+  
+}
+else {
+  
+}
 endsnippet
 

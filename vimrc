@@ -85,6 +85,8 @@ nmap     <leader>mO     :set mouse=<CR>
 " map "ii" to escape
 inoremap ii <ESC>
 
+nmap <leader>nw :set wrap!<CR>
+
 " abbreviations
 iab __HOME__  /nfs/users/nfs_j/jt6
 iab strictl   strict;
