@@ -161,3 +161,27 @@ else {
 }
 endsnippet
 
+snippet at "simple Moose attribute template"
+has '$0' => (
+  is  => 'ro',
+  isa => 'Str',
+ );
+endsnippet
+
+snippet atf "full Moose attribute template"
+has '$0' => (
+  is       => 'ro',
+  isa      => 'Str',
+  lazy     => 1,
+  default  => 'default',
+  required => 1,
+  writer   => '_set_',
+  builder  => '_build_$0',
+ );
+
+sub _build_$0 {
+  my $self = shift;
+
+}
+endsnippet
+

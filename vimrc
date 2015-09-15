@@ -8,11 +8,6 @@ set t_Co=256
 "colorscheme emacs
 syntax on
 
-" folding set up
-highlight Folded     ctermbg=0
-" highlight FoldColumn ctermbg=0
-" set foldcolumn=1
-
 let mapleader = "," " make comma the leader. Easier to get to on the MB than backslash
 
 set expandtab                  "\
@@ -49,9 +44,6 @@ nmap <silent> <F2> :set go-=m<CR>
 " turn on  the menubar
 nmap <silent> <F3> :set go+=m<CR>
 set guicursor+=a:blinkon0      " turn off the blinking cursor in the GUI
-
-" make matching parens readable !
-hi MatchParen ctermfg=5
 
 " general key mappings
 
@@ -224,6 +216,12 @@ Plugin 'altercation/vim-colors-solarized'
 let g:solarized_termtrans=1
 set background=dark
 colorscheme solarized
+
+highlight MatchParen            ctermfg=5
+highlight Folded     cterm=none ctermfg=10
+" see colours at:
+"   https://upload.wikimedia.org/wikipedia/en/1/15/Xterm_256color_chart.svg
+
 
 "-------------------------------------------------------------------------------
 " Command-T
