@@ -287,3 +287,7 @@ filetype plugin indent on
 "   exe 'source '.hostfile
 " endif
 
+" stop the warnings about ruby when running a vim that wasn't compiled with
+" ruby
+let g:LustyJugglerSuppressRubyWarning = 1
+
