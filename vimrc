@@ -76,6 +76,11 @@ nmap     <leader>mO     :set mouse=<CR>
 " noremap N Nzz                                   "/
 " map "ii" to escape
 inoremap ii <ESC>
+" open and close tabs
+map <leader>tc :tabnew<CR>
+map <leader>tC :tabclose<CR>
+" open the current window in a new tab
+map <leader>ts :tab split<CR>
 
 nmap <leader>nw :set wrap!<CR>
 
@@ -118,11 +123,11 @@ set pastetoggle=<Leader>pp
 autocmd Filetype perl :set equalprg=perltidy
 
 " define :Tidy command to run perltidy on visual selection || entire buffer"
-command -range=% -nargs=* Tidy <line1>,<line2>!perltidy
+command! -range=% -nargs=* Tidy <line1>,<line2>!perltidy
 " command -range=% -nargs=* Tidy <line1>,<line2>!perltidy -l=132 -ci=2 -i=2 -nsfs -bar -bbb -bbs -bbc -anl -otr
 
 " run :Tidy on entire buffer and return cursor to (approximate) original position"
-fun DoTidy()
+fun! DoTidy()
     let Pos = line2byte( line( "." ) )
     :Tidy
     exe "goto " . Pos
@@ -291,3 +296,4 @@ filetype plugin indent on
 " ruby
 let g:LustyJugglerSuppressRubyWarning = 1
 
+let @m='V/INSkdGVNjdvt(;l"qy:%s/),(/);q/'
