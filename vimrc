@@ -147,10 +147,12 @@ au Filetype perl vmap <leader>pt :Tidy<CR>
 
 filetype off
 
-set rtp+=~/.vim/Vundle.vim
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
+
+Plugin 'tpope/vim-fugitive'
 
 "-------------------------------------------------------------------------------
 " NERDTree
