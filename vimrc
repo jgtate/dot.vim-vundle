@@ -152,7 +152,14 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 
+"-------------------------------------------------------------------------------
+" fugitive
+
 Plugin 'tpope/vim-fugitive'
+
+map <leader>gs :Gstatus<CR>
+map <leader>gc :Gcommit<CR>
+map <leader>gd :Gdiff<CR>
 
 "-------------------------------------------------------------------------------
 " NERDTree
@@ -168,14 +175,6 @@ let NERDTreeChDirMode=2
 nmap <silent> <leader>nt :NERDTreeToggle<CR>
 
 "-------------------------------------------------------------------------------
-" VCSCommand
-
-Plugin 'vcscommand.vim'
-
-" reset the command prefix
-let VCSCommandMapPrefix="<Leader>v"
-
-"-------------------------------------------------------------------------------
 " LustyJuggler and LustyExplorer
 
 Plugin 'LustyExplorer'
@@ -183,26 +182,6 @@ Plugin 'LustyJuggler'
 
 " add an extra mapping for LustyExplorer
 map <leader>lh :LustyFilesystemExplorerFromHere<CR>
-
-"-------------------------------------------------------------------------------
-" Ack
-
-" Plugin "ack.vim"
-"
-" noremap <LocalLeader># "ayiw:Ack <C-r>a<CR>
-" vnoremap <LocalLeader># "ay:Ack <C-r>a<CR>
-
-"-------------------------------------------------------------------------------
-" Taglist
-"
-" Plugin "taglist.vim"
-"
-" let Tlist_perl_settings = 'perl;c:constant;l:label;p:package;s:subroutine;a:attribute'
-" let Tlist_GainFocus_On_ToggleOpen = 1
-" let Tlist_Close_On_Select = 1
-" let Tlist_Show_One_File = 1
-"
-" nnoremap <leader>tl :TlistToggle<CR>
 
 "-------------------------------------------------------------------------------
 " Unimpaired
@@ -244,21 +223,6 @@ Plugin 'bling/vim-airline'
 let g:airline_powerline_fonts = 1
 set laststatus=2
 let g:airline#extensions#tmuxline#enabled = 1
-
-"-------------------------------------------------------------------------------
-" vim-search-pulse
-
-" not quite mature enough yet...
-" Plugin 'https://github.com/inside/vim-search-pulse.git'
-" let g:vim_search_pulse_mode = 'pattern'
-" let g:vim_search_pulse_duration = 400
-" nmap n n<Plug>PulseCursorLine
-" nmap N N<Plug>PulseCursorLine
-" nmap * *<Plug>PulseCursorLine
-" nmap # #<Plug>PulseCursorLine
-" " Pulses cursor line on first match
-" " " when doing search with / or ?
-" cmap <enter> <Plug>PulseFirst
 
 "-------------------------------------------------------------------------------
 " everything else...
