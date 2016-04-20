@@ -61,7 +61,7 @@ nmap     <leader>s      :w<CR>
 " save all buffers
 nmap     <leader>sa     :wa<CR>
 " toggle highlighting of search terms
-nnoremap  <silent> <C-n> :se invhlsearch<CR>
+nnoremap  <silent> <C-m> :se invhlsearch<CR>
 " toggle line numbers
 nnoremap <leader>nn     :set number!<CR>
 " toggle relative line numbers
@@ -243,6 +243,7 @@ Plugin 'SirVer/ultisnips'
 Plugin 'ervandew/supertab'
 Plugin 'matchit.zip'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'terryma/vim-multiple-cursors'
 
 "-------------------------------------------------------------------------------
 " all bundles must be added before here
