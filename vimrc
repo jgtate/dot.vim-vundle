@@ -34,6 +34,7 @@ set cpoptions=B$               " show existing content when changing text, and s
 set splitright                 " put new split windows on the right or below the current
 set splitbelow                 " one, rather than to the left or above
 set modeline                   " take note of modelines in files
+set foldmethod=marker          " fold manually or on fold markers ({{{ / }}})
 
 " setup the GUI
 " set guifont=-misc-monospace-medium-r-semicondensed-*-*-110-*-*-c-*-koi8-r
@@ -210,13 +211,6 @@ highlight Folded     cterm=none ctermfg=10
 
 
 "-------------------------------------------------------------------------------
-" Command-T
-
-Plugin 'wincent/Command-T'
-
-nnoremap <C-t> :CommandT<CR>
-
-"-------------------------------------------------------------------------------
 " airline
 
 Plugin 'bling/vim-airline'
@@ -225,25 +219,37 @@ set laststatus=2
 let g:airline#extensions#tmuxline#enabled = 1
 
 "-------------------------------------------------------------------------------
+" FZF -- fuzzy file finding
+
+Plugin 'junegunn/fzf.vim'
+Plugin 'junegunn/fzf'
+
+map <C-T> :Files<CR>
+map <leader>bf :Buffers<CR>
+
+"-------------------------------------------------------------------------------
+" Colorizer
+
+Plugin 'chrisbra/Colorizer'
+let g:colorizer_auto_filetype='css,html'
+
+"-------------------------------------------------------------------------------
 " everything else...
 
 Plugin 'Align'
 Plugin 'bufexplorer.zip'
-Plugin 'repeat.vim'
 Plugin 'sessionman.vim'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'surround.vim'
 Plugin 'vim-perl/vim-perl'
 Plugin 'EasyMotion'
-Plugin 'camelcasemotion'
 Plugin 'tComment'
 Plugin 'IndexedSearch'
 Plugin 'SirVer/ultisnips'
 Plugin 'ervandew/supertab'
 Plugin 'matchit.zip'
 Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'terryma/vim-multiple-cursors'
 
 "-------------------------------------------------------------------------------
 " all bundles must be added before here
