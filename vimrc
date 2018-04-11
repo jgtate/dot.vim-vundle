@@ -14,7 +14,7 @@ set expandtab                  "\
 set softtabstop=2              " ) make tabs two spaces
 set shiftwidth=2               "/
 set mouse=a                    "\ turn on mouse control
-set ttymouse=xterm2            "/
+"set ttymouse=xterm2            "/
 set incsearch                  " turn on incremental searches
 set number                     " show line numbers
 set hidden                     " allow switching buffers without saving current buffer
@@ -82,8 +82,10 @@ map <leader>tc :tabnew<CR>
 map <leader>tC :tabclose<CR>
 " open the current window in a new tab
 map <leader>ts :tab split<CR>
-
+" toggle line wrapping
 nmap <leader>nw :set wrap!<CR>
+" make '//' search for visually selected text
+vnoremap // y/<C-R>"<CR>
 
 " abbreviations
 iab __HOME__  /nfs/users/nfs_j/jt6
@@ -143,8 +145,6 @@ au Filetype perl vmap <leader>pt :Tidy<CR>
 "-------------------------------------------------------------------------------
 "- plugin configurations -------------------------------------------------------
 "-------------------------------------------------------------------------------
-
-" runtime macros/matchit.vim
 
 filetype off
 
@@ -209,6 +209,14 @@ vmap <C-Down> ]egv
 " see colours at:
 "   https://upload.wikimedia.org/wikipedia/en/1/15/Xterm_256color_chart.svg
 
+
+"-------------------------------------------------------------------------------
+" Command-T
+
+Plugin 'wincent/Command-T'
+
+let g:CommandTWildIgnore=&wildignore . ",*/node_modules"
+nnoremap <C-t> :CommandT<CR>
 
 "-------------------------------------------------------------------------------
 " airline
