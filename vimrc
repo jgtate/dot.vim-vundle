@@ -270,6 +270,9 @@ Plugin 'SirVer/ultisnips'
 Plugin 'ervandew/supertab'
 Plugin 'matchit.zip'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
+Plugin 'vim-graphql'
 
 "-------------------------------------------------------------------------------
 " all bundles must be added before here
