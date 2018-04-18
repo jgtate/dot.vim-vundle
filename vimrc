@@ -260,6 +260,7 @@ endif
 
 colorscheme onedark
 let g:airline_theme='onedark'
+highlight MatchParen ctermbg=grey ctermfg=black
 
 "-------------------------------------------------------------------------------
 " everything else...
@@ -270,6 +271,7 @@ Plugin 'sessionman.vim'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'surround.vim'
+Plugin 'repeat.vim'
 Plugin 'vim-perl/vim-perl'
 Plugin 'EasyMotion'
 Plugin 'tComment'
