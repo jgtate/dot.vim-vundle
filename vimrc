@@ -13,8 +13,12 @@ let mapleader = "," " make comma the leader. Easier to get to on the MB than bac
 set expandtab                  "\
 set softtabstop=2              " ) make tabs two spaces
 set shiftwidth=2               "/
-set mouse=a                    "\ turn on mouse control
-"set ttymouse=xterm2            "/
+set mouse=a                    " turn on mouse control
+if has("mouse_sgr")            " fix mouse problems on very wide terminals (>220 chars)
+  set ttymouse=sgr
+else
+  set ttymouse=xterm2
+end
 set incsearch                  " turn on incremental searches
 set number                     " show line numbers
 set hidden                     " allow switching buffers without saving current buffer
@@ -35,6 +39,7 @@ set splitright                 " put new split windows on the right or below the
 set splitbelow                 " one, rather than to the left or above
 set modeline                   " take note of modelines in files
 set foldmethod=marker          " fold manually or on fold markers ({{{ / }}})
+set fillchars=vert:\│          " use a unicode char for making the splits separator
 
 " setup the GUI
 " set guifont=-misc-monospace-medium-r-semicondensed-*-*-110-*-*-c-*-koi8-r
@@ -254,9 +259,9 @@ endif
 "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
 "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
 " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-if (has("termguicolors"))
-  set termguicolors
-endif
+" if (has("termguicolors"))
+"   set termguicolors
+" endif
 
 colorscheme onedark
 let g:airline_theme='onedark'
