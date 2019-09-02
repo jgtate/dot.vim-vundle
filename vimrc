@@ -8,7 +8,7 @@ set t_Co=256
 "colorscheme emacs
 syntax on
 
-let mapleader = "," " make comma the leader. Easier to get to on the MB than backslash
+let mapleader = " " " make comma the leader. Easier to get to on the MB than backslash
 
 set expandtab                  "\
 set softtabstop=2              " ) make tabs two spaces
@@ -16,8 +16,6 @@ set shiftwidth=2               "/
 set mouse=a                    " turn on mouse control
 if has("mouse_sgr")            " fix mouse problems on very wide terminals (>220 chars)
   set ttymouse=sgr
-else
-  set ttymouse=xterm2
 end
 set incsearch                  " turn on incremental searches
 set number                     " show line numbers
@@ -202,20 +200,6 @@ vmap <C-Up> [egv
 vmap <C-Down> ]egv
 
 "-------------------------------------------------------------------------------
-" solarized
-
-" Plugin 'altercation/vim-colors-solarized'
-" let g:solarized_termtrans=1
-" set background=dark
-" colorscheme solarized
-"
-" highlight MatchParen            ctermfg=5
-" highlight Folded     cterm=none ctermfg=10
-" see colours at:
-"   https://upload.wikimedia.org/wikipedia/en/1/15/Xterm_256color_chart.svg
-
-
-"-------------------------------------------------------------------------------
 " Command-T
 
 Plugin 'wincent/Command-T'
@@ -245,6 +229,19 @@ map <leader>bf :Buffers<CR>
 
 Plugin 'chrisbra/Colorizer'
 let g:colorizer_auto_filetype='css,html'
+
+"-------------------------------------------------------------------------------
+" solarized
+
+" Plugin 'altercation/vim-colors-solarized'
+" let g:solarized_termtrans=1
+" set background=dark
+" colorscheme solarized
+"
+" highlight MatchParen            ctermfg=5
+" highlight Folded     cterm=none ctermfg=10
+" see colours at:
+"   https://upload.wikimedia.org/wikipedia/en/1/15/Xterm_256color_chart.svg
 
 "-------------------------------------------------------------------------------
 " atom colorscheme
@@ -281,13 +278,17 @@ Plugin 'vim-perl/vim-perl'
 Plugin 'EasyMotion'
 Plugin 'tComment'
 Plugin 'IndexedSearch'
-Plugin 'SirVer/ultisnips'
+" Plugin 'SirVer/ultisnips'
 Plugin 'ervandew/supertab'
 Plugin 'matchit.zip'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
-Plugin 'vim-graphql'
+Plugin 'jparise/vim-graphql'
+
+" A plugin to fix the problem of pasting into vim inside a zsh which has 
+" bracked-paste mode enabled.
+Plugin 'ConradIrwin/vim-bracketed-paste'
 
 "-------------------------------------------------------------------------------
 " all bundles must be added before here
